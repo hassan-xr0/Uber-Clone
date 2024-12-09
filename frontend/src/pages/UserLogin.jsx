@@ -1,32 +1,46 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-
-
+import { Link, useNavigate } from "react-router-dom";
+import uberLogo from "/src/images/uber-logo.png";
+import axios from "axios";
+import { useContext } from "react";
+import { UserDataContext } from "../context/UserContext";
 
 const UserLogin = () => {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [userDate,setUserData] = useState({})
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  // const [userDate,setUserData] = useState({})
 
-    const submitHandler = (e) => {
-        e.preventDefault()
-        setUserData({email,password})
-        console.log(userDate)
-        setEmail('')
-        setPassword('')
+  const { user, setUser } = useContext(UserDataContext);
+
+  const navigate = useNavigate();
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    const userData = {
+      email,
+      password,
+    };
+    const response = await axios.post(
+      `${import.meta.env.VITE_BASE_URL}/users/login`,
+      userData
+    );
+    if (response.status === 200) {
+      const data = response.data;
+      setUser(data.user);
+      localStorage.setItem("token", data.token);
+      navigate("/home");
     }
+    setEmail("");
+    setPassword("");
+  };
   return (
     <div className="uber-move-text py-6 px-4">
       <div className="logo mb-8 mt-5 w-full flex items-center justify-center">
-        <img
-          className="w-20"
-          src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Uber_logo_2018.png"
-          alt=""
-        />
+        <img className="w-20" src={uberLogo} alt="" />
       </div>
 
       <div className="login-form">
-        <form action="" onSubmit={e=>submitHandler(e)}>
+        <form action="" onSubmit={(e) => submitHandler(e)}>
           <h3 className="text-lg tracking-tighter font-medium">
             What's your email
           </h3>
@@ -64,11 +78,17 @@ const UserLogin = () => {
       </div>
 
       <div className="ex-btn">
-        <Link to='/users/register' className="bg-neutral-200  block text-center  text-black font-semibold w-full py-3 rounded-lg mt-2">
+        <Link
+          to="/signup"
+          className="bg-neutral-200  block text-center  text-black font-semibold w-full py-3 rounded-lg mt-2"
+        >
           Sign Up
         </Link>
-        <Link to='/captains/login' className="bg-green-300 block text-center text-black font-semibold w-full py-3 rounded-lg mt-2">
-          Sign in as Captain
+        <Link
+          to="/captains-signup"
+          className="bg-green-300 block text-center text-black font-semibold w-full py-3 rounded-lg mt-2"
+        >
+          Become Captain
         </Link>
       </div>
     </div>

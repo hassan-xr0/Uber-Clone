@@ -1,32 +1,41 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import UberDriverLogo from "/src/images/UberDriveLogo.svg";
+import { useContext } from "react";
+import { CaptainDataContext } from "../context/CaptainContext";
+import axios from "axios";
 
 
 const UserLogin = () => {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [userDate,setUserData] = useState({})
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-    const submitHandler = (e) => {
-        e.preventDefault()
-        setUserData({email,password})
-        console.log(userDate)
-        setEmail('')
-        setPassword('')
+  const { captain, setCaptain } = useContext(CaptainDataContext);
+  const navigate = useNavigate()
+
+  const submitHandler = async(e) => {
+    e.preventDefault();
+    const captainData = { email: email, password: password };
+
+    const res = await axios.post(`${import.meta.env.VITE_BASE_URL}/captains/login`, captainData);
+    if(res.status === 200) {
+      setCaptain(res.data.captain);
+      localStorage.setItem('captain-token', res.data.token);
+      navigate("/captains-home");
     }
+
+    console.log(captain);
+    setEmail("");
+    setPassword("");
+  };
   return (
     <div className="uber-move-text py-6 px-4">
-      <div className="logo mb-8 mt-5 w-full flex items-center justify-center">
-        <img
-          className="w-20"
-          src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Uber_logo_2018.png"
-          alt=""
-        />
+      <div className="logo mb-5 mt- w-full flex items-center jstify-center">
+        <p className="text-3xl font-medium">Captain SignUp</p>
       </div>
 
       <div className="login-form">
-        <form action="" onSubmit={e=>submitHandler(e)}>
+        <form action="" onSubmit={(e) => submitHandler(e)}>
           <h3 className="text-lg tracking-tighter font-medium">
             What's your email
           </h3>
@@ -64,10 +73,16 @@ const UserLogin = () => {
       </div>
 
       <div className="ex-btn">
-        <Link to='/users/register' className="bg-neutral-200  block text-center  text-black font-semibold w-full py-3 rounded-lg mt-2">
-          Sign Up 
+        <Link
+          to="/captains-signup"
+          className="bg-neutral-200  block text-center  text-black font-semibold w-full py-3 rounded-lg mt-2"
+        >
+          Sign Up
         </Link>
-        <Link to='/users/login' className="bg-yellow-300 block text-center text-black font-semibold w-full py-3 rounded-lg mt-2">
+        <Link
+          to="/login"
+          className="bg-yellow-300 block text-center text-black font-semibold w-full py-3 rounded-lg mt-2"
+        >
           Sign in as User
         </Link>
       </div>
