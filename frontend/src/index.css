@@ -2,8 +2,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@layer{
-    .uber-move-text{
+@layer base {
+    body {
         font-family: 'Uber Move Text', sans-serif;
     }
 }
