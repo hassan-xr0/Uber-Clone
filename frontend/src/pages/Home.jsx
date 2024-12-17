@@ -4,7 +4,13 @@ import { useState } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import LocationSearchPanel from "../components/LocationSearchPanel";
-import userBg from "../images/uber-search-2.png"; 
+import userBg from "../images/uber-search-2.png";
+import whiteCar from "../images/white-car.webp";
+import blackCar from "../images/black-car.webp";
+import Motorcycle from "../images/UberMotorcycle.webp";
+
+import VehicleCard from "../components/VehicleCard";
+
 
 const Home = () => {
   const [pickUp, setPickUp] = useState("");
@@ -21,26 +27,27 @@ const Home = () => {
       gsap.to(panelRef.current, {
         duration: 0.2,
         height: "70%",
-        display:'block',
-        padding: '12px',
+        display: "block",
+        padding: "12px",
         opacity: 1,
       });
     } else {
       gsap.to(panelRef.current, {
         duration: 0.2,
-        display:'none',
+        display: "none",
         height: "0%",
-        padding:'0px',
+        padding: "0px",
       });
     }
   }, [isOpenPanel]);
 
   return (
-    <div>
+    <div className="overflow-hidden">
       <img className="w-20 absolute m-8" src={uberLogo} alt="" />
       <div className={` h-screen w-screen`}>
-     <img src={userBg} alt="" />
+        <img src={userBg} alt="" />
       </div>
+
       <div className=" flex flex-col justify-end absolute bottom-0 w-full h-full   rounded-t-2xl">
         <div className="h-[30%] bg-white py-6 px-3">
           <div className="flex justify-between">
@@ -108,8 +115,16 @@ const Home = () => {
           </form>
         </div>
         <div ref={panelRef} className=" opacity-0 bg-white hidden">
-          < LocationSearchPanel/>
+          <LocationSearchPanel />
         </div>
+      </div>
+
+      <div className="fixed bottom-0 bg-white py-4  w-full min-h-[30vh] flex flex-col  gap-2">
+        <h2 className="mt-2 mx-4 text-xl tracking-tight font-semibold">Chose the vehicle</h2>
+          <VehicleCard carImg={whiteCar} w={70} carName='UberGo' carPrice='₹ 192.20' carCapacity='4' time='2 min away • 15:24' about='Affordable and reliable' />
+          <VehicleCard carImg={Motorcycle} w={70} carName='UberGo' carPrice='₹ 192.20' carCapacity='4' time='2 min away • 15:24' about='Affordable and reliable' />
+          <VehicleCard carImg={Motorcycle} w={70} carName='UberGo' carPrice='₹ 192.20' carCapacity='4' time='2 min away • 15:24' about='Affordable and reliable' />
+        
       </div>
     </div>
   );
