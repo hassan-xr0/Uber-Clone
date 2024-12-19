@@ -7,16 +7,17 @@ import LocationSearchPanel from "../components/LocationSearchPanel";
 import userBg from "../images/uber-search-2.png";
 import whiteCar from "../images/white-car.webp";
 import blackCar from "../images/black-car.webp";
-import Motorcycle from "../images/UberMotorcycle.webp";
-
+import Motorcycle from "../images/UberMotorcycle3.webp";
+import UberAuto from "../images/Uber-auto.webp";
 import VehicleCard from "../components/VehicleCard";
-
 
 const Home = () => {
   const [pickUp, setPickUp] = useState("");
   const [destination, setDestination] = useState("");
   const [isOpenPanel, setIsOpenPanel] = useState(false);
+  const [vehiclePanel, setVehiclePanel] = useState(false);
   const panelRef = useRef();
+  const vehiclePanelRef = useRef(null);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -40,6 +41,30 @@ const Home = () => {
       });
     }
   }, [isOpenPanel]);
+
+  useGSAP(() => {
+    if (vehiclePanel) {
+      gsap.to(vehiclePanelRef.current, {
+        duration: 0.2,
+        // height: "70%",
+        display: "flex",
+        y: 0,
+        opacity: 1,
+      });
+      // gsap.to(panelRef.current, {
+      //   duration: 0.2,
+      //   display: "none",
+      //   height: "0%",
+      //   padding: "0px",
+      // })
+    } else {
+      gsap.to(vehiclePanelRef.current, {
+        duration: 0.2,
+        // display: "none",
+        y: 350,
+      });
+    }
+  }, [vehiclePanel]);
 
   return (
     <div className="overflow-hidden">
@@ -115,16 +140,66 @@ const Home = () => {
           </form>
         </div>
         <div ref={panelRef} className=" opacity-0 bg-white hidden">
-          <LocationSearchPanel />
+          <LocationSearchPanel
+            isOpenPanel={isOpenPanel}
+            setIsOpenPanel={setIsOpenPanel}
+            vehiclePanel={vehiclePanel}
+            setVehiclePanel={setVehiclePanel}
+          />
         </div>
       </div>
 
-      <div className="fixed bottom-0 bg-white py-4  w-full min-h-[30vh] flex flex-col  gap-2">
-        <h2 className="mt-2 mx-4 text-xl tracking-tight font-semibold">Chose the vehicle</h2>
-          <VehicleCard carImg={whiteCar} w={70} carName='UberGo' carPrice='₹ 192.20' carCapacity='4' time='2 min away • 15:24' about='Affordable and reliable' />
-          <VehicleCard carImg={Motorcycle} w={70} carName='UberGo' carPrice='₹ 192.20' carCapacity='4' time='2 min away • 15:24' about='Affordable and reliable' />
-          <VehicleCard carImg={Motorcycle} w={70} carName='UberGo' carPrice='₹ 192.20' carCapacity='4' time='2 min away • 15:24' about='Affordable and reliable' />
-        
+      <div
+        ref={vehiclePanelRef}
+        className="fixed bottom-0  bg-white pt-4 pb-10 gap-2 w-full min-h-[30vh] flex flex-col  rounded-t-3xl"
+      >
+        <div className="flex justify-between items-center mt-2 mx-4 ">
+          <h2 className="text-xl tracking-tight font-semibold ">
+            Chose the vehicle
+          </h2>
+          {vehiclePanel && (
+            <svg
+              onClick={() => {
+                setVehiclePanel(false);
+              }}
+              className="mb-4  "
+              xmlns="http://www.w3.org/2000/svg"
+              height="18px"
+              viewBox="0 -960 960 960"
+              width="20px"
+              fill="#000"
+            >
+              <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+            </svg>
+          )}
+        </div>
+        <VehicleCard
+          carImg={whiteCar}
+          w={70}
+          carName="UberGo"
+          carPrice="192.20"
+          carCapacity="4"
+          time="2 min away • 15:24"
+          about="Affordable compact rides"
+        />
+        <VehicleCard
+          carImg={Motorcycle}
+          w={70}
+          carName="Moto"
+          carPrice="65.12"
+          carCapacity="1"
+          time="3 min away • 15:24"
+          about="Affordable motorcycle rides"
+        />
+        <VehicleCard
+          carImg={UberAuto}
+          w={70}
+          carName="UberAuto"
+          carPrice="118.10"
+          carCapacity="4"
+          time="2 min away • 15:24"
+          about=""
+        />
       </div>
     </div>
   );
