@@ -66,7 +66,7 @@ const UserLogin = () => {
             placeholder="Password"
           />
           <button className="bg-black text-white w-full py-3 rounded-lg mt-2">
-            Continue
+            Login
           </button>
         </form>
       </div>
@@ -82,7 +82,7 @@ const UserLogin = () => {
           to="/signup"
           className="bg-neutral-200  block text-center  text-black font-semibold w-full py-3 rounded-lg mt-2"
         >
-          Sign Up
+          Create account
         </Link>
         <Link
           to="/captains-signup"

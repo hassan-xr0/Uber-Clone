@@ -9,9 +9,11 @@ const VehicleCard = ({
   w,
   time,
   about,
+  
+  
 }) => {
   return (
-    <div className="flex w-[95%]  mx-auto h-full px-2 py-3 rounded-lg gap-5 cursor-pointer hover:border-2 border-zinc-800 ">
+    <div  className="flex w-[95%]  mx-auto h-full px-2 py-3 rounded-lg gap-5 cursor-pointer hover:border-[3px] border-zinc-800 transition-colors ">
       <div className="vehicle-img ">
         <img src={carImg} alt="" width={w} />
       </div>
