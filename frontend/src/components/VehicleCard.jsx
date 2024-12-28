@@ -9,11 +9,10 @@ const VehicleCard = ({
   w,
   time,
   about,
-  
-  
+  setConfirm
 }) => {
   return (
-    <div  className="flex w-[95%]  mx-auto h-full px-2 py-3 rounded-lg gap-5 cursor-pointer hover:border-[3px] border-zinc-800 transition-colors ">
+    <div onClick={()=>{setConfirm(true)}}  className="flex w-[95%]  mx-auto h-full px-2 py-3 rounded-lg gap-5 cursor-pointer hover:border-[3px] border-zinc-800 transition-colors ">
       <div className="vehicle-img ">
         <img src={carImg} alt="" width={w} />
       </div>

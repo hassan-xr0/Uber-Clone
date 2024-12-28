@@ -10,19 +10,28 @@ import blackCar from "../images/black-car.webp";
 import Motorcycle from "../images/UberMotorcycle3.webp";
 import UberAuto from "../images/Uber-auto.webp";
 import VehicleCard from "../components/VehicleCard";
+import MapPin from "../images/map-pin.svg";
+import Sqaure from "../images/square.svg";
+import PaymentMethod from "../images/bank-card.svg";
+import WideArrow from "../images/arrow-down-wide.svg";
+import ConfirmRide from "../components/ConfirmRide";
+
 
 const Home = () => {
   const [pickUp, setPickUp] = useState("");
   const [destination, setDestination] = useState("");
   const [isOpenPanel, setIsOpenPanel] = useState(false);
   const [vehiclePanel, setVehiclePanel] = useState(false);
+  const [isOpenConfirm, setIsOpenConfirm] = useState(false);
   const panelRef = useRef();
   const vehiclePanelRef = useRef(null);
+  const confirmRef = useRef(null);
 
   const submitHandler = (e) => {
     e.preventDefault();
   };
 
+  // Main Panel Gsap
   useGSAP(() => {
     if (isOpenPanel) {
       gsap.to(panelRef.current, {
@@ -42,6 +51,7 @@ const Home = () => {
     }
   }, [isOpenPanel]);
 
+  // Vehicle Panel Gsap 
   useGSAP(() => {
     if (vehiclePanel) {
       gsap.to(vehiclePanelRef.current, {
@@ -51,28 +61,44 @@ const Home = () => {
         y: 0,
         opacity: 1,
       });
-      // gsap.to(panelRef.current, {
-      //   duration: 0.2,
-      //   display: "none",
-      //   height: "0%",
-      //   padding: "0px",
-      // })
+      setIsOpenPanel(false);
     } else {
       gsap.to(vehiclePanelRef.current, {
         duration: 0.2,
-        // display: "none",
+        display: "none",
         y: 350,
       });
     }
   }, [vehiclePanel]);
+  
+  // Confirm Panel Gsap 
+  useGSAP(() => {
+    if (isOpenConfirm) {
+      gsap.to(confirmRef.current, {
+        duration: 0.2,
+        // height: "70%",
+        display: "flex",
+        y: 0,
+        opacity: 1,
+      });
+      setVehiclePanel(false);
+    } else {
+      gsap.to(confirmRef.current, {
+        duration: 0.2,
+        display: "none",
+        y: 550,
+      });
+    }
+  }, [isOpenConfirm]);
 
   return (
     <div className="overflow-hidden">
       <img className="w-20 absolute m-8" src={uberLogo} alt="" />
+
       <div className={` h-screen w-screen`}>
         <img src={userBg} alt="" />
       </div>
-
+      {/* Main Panel  */}
       <div className=" flex flex-col justify-end absolute bottom-0 w-full h-full   rounded-t-2xl">
         <div className="h-[30%] bg-white py-6 px-3">
           <div className="flex justify-between">
@@ -139,16 +165,15 @@ const Home = () => {
             </div>
           </form>
         </div>
+        {/* List of location panel */}
         <div ref={panelRef} className=" opacity-0 bg-white hidden">
           <LocationSearchPanel
-            isOpenPanel={isOpenPanel}
-            setIsOpenPanel={setIsOpenPanel}
-            vehiclePanel={vehiclePanel}
             setVehiclePanel={setVehiclePanel}
           />
         </div>
       </div>
 
+      {/* Vehicle Panel  */}
       <div
         ref={vehiclePanelRef}
         className="fixed bottom-0  bg-white pt-4 pb-10 gap-2 w-full min-h-[30vh] flex flex-col  rounded-t-3xl"
@@ -174,6 +199,9 @@ const Home = () => {
           )}
         </div>
         <VehicleCard
+          // onClick={() => {
+          //   isOpenConfirm(true);
+          // }}
           carImg={whiteCar}
           w={70}
           carName="UberGo"
@@ -181,6 +209,7 @@ const Home = () => {
           carCapacity="4"
           time="2 min away • 15:24"
           about="Affordable compact rides"
+          setConfirm={setIsOpenConfirm}
         />
         <VehicleCard
           carImg={Motorcycle}
@@ -190,6 +219,7 @@ const Home = () => {
           carCapacity="1"
           time="3 min away • 15:24"
           about="Affordable motorcycle rides"
+          setConfirm={setIsOpenConfirm}
         />
         <VehicleCard
           carImg={UberAuto}
@@ -199,8 +229,15 @@ const Home = () => {
           carCapacity="4"
           time="2 min away • 15:24"
           about=""
+          setConfirm={setIsOpenConfirm}
         />
       </div>
+
+      {/* Confirm Panel  */}
+      <div ref={confirmRef} className="absolute bottom-0  bg-white  pb-4">
+        <ConfirmRide setIsOpenConfirm={setIsOpenConfirm} WideArrow={WideArrow} Sqaure={Sqaure} PaymentMethod={PaymentMethod} MapPin={MapPin} whiteCar={whiteCar} /> 
+      </div>
+ 
     </div>
   );
 };

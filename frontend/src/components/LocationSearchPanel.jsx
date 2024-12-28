@@ -1,12 +1,8 @@
 import React from "react";
 import "remixicon/fonts/remixicon.css";
 
-const LocationSearchPanel = ({
-  vehiclePanel,
-  setVehiclePanel,
-  setIsOpenPanel,
-  isOpenPanel,
-}) => {
+const LocationSearchPanel = ({vehiclePanel,setVehiclePanel})=> {
+  
   const locations = [
     {
       name: "Brockton Avenue, Abington",
@@ -25,14 +21,15 @@ const LocationSearchPanel = ({
       streetNo: "Bethlehem Utah 02913",
     },
   ];
+  
   return (
     <div className="space-y-4">
       {/* Sample Data */}
       {locations.map((location, i) => (
         <div
           onClick={() => {
-            setVehiclePanel(!vehiclePanel);
-            setIsOpenPanel(!isOpenPanel);
+            setVehiclePanel(true);
+            
           }}
           key={i}
           className="flex items-center gap-2  pr-3"
