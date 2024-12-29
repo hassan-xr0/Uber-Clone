@@ -15,6 +15,7 @@ import Sqaure from "../images/square.svg";
 import PaymentMethod from "../images/bank-card.svg";
 import WideArrow from "../images/arrow-down-wide.svg";
 import ConfirmRide from "../components/ConfirmRide";
+import LookingForRider from "../components/LookingForRider";
 
 
 const Home = () => {
@@ -236,6 +237,11 @@ const Home = () => {
       {/* Confirm Panel  */}
       <div ref={confirmRef} className="absolute bottom-0  bg-white  pb-4">
         <ConfirmRide setIsOpenConfirm={setIsOpenConfirm} WideArrow={WideArrow} Sqaure={Sqaure} PaymentMethod={PaymentMethod} MapPin={MapPin} whiteCar={whiteCar} /> 
+      </div>
+
+      {/* Waiting for driver Panel  */}
+      <div className="absolute bottom-0  bg-white pb-4">
+        <LookingForRider  setIsOpenConfirm={setIsOpenConfirm} WideArrow={WideArrow} Sqaure={Sqaure} PaymentMethod={PaymentMethod} MapPin={MapPin} whiteCar={whiteCar}  />
       </div>
  
     </div>
