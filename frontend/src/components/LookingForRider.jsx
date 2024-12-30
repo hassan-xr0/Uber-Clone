@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from "react";
 
 
 const LookingForRider = ({
-  setIsOpenConfirm,
+  setLookingDirver,
   WideArrow,
   Sqaure,
   PaymentMethod,
@@ -26,7 +26,7 @@ const LookingForRider = ({
     <div>
       <div className="w-screen flex flex-col items-center">
         {" "}
-        <div onClick={() => setIsOpenConfirm(false)}>
+        <div onClick={() => setLookingDirver(false)}>
           <img src={WideArrow} width={20} />
         </div>
         <h2 className="text-lg font-semibold mt-1 mb-2">

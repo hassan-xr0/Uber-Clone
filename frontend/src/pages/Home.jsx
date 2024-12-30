@@ -16,7 +16,7 @@ import PaymentMethod from "../images/bank-card.svg";
 import WideArrow from "../images/arrow-down-wide.svg";
 import ConfirmRide from "../components/ConfirmRide";
 import LookingForRider from "../components/LookingForRider";
-
+import { useEffect } from "react";
 
 const Home = () => {
   const [pickUp, setPickUp] = useState("");
@@ -24,73 +24,63 @@ const Home = () => {
   const [isOpenPanel, setIsOpenPanel] = useState(false);
   const [vehiclePanel, setVehiclePanel] = useState(false);
   const [isOpenConfirm, setIsOpenConfirm] = useState(false);
+  const [lookingDirver, setLookingDirver] = useState(false);
+  const [vehicleFoundPanel, setVehicleFoundPanel] = useState(false)
   const panelRef = useRef();
   const vehiclePanelRef = useRef(null);
   const confirmRef = useRef(null);
+  const lookingDriverRef = useRef(null);
 
   const submitHandler = (e) => {
     e.preventDefault();
   };
 
-  // Main Panel Gsap
-  useGSAP(() => {
-    if (isOpenPanel) {
-      gsap.to(panelRef.current, {
-        duration: 0.2,
-        height: "70%",
-        display: "block",
-        padding: "12px",
-        opacity: 1,
-      });
-    } else {
-      gsap.to(panelRef.current, {
-        duration: 0.2,
-        display: "none",
-        height: "0%",
-        padding: "0px",
-      });
-    }
-  }, [isOpenPanel]);
-
-  // Vehicle Panel Gsap 
-  useGSAP(() => {
-    if (vehiclePanel) {
-      gsap.to(vehiclePanelRef.current, {
-        duration: 0.2,
-        // height: "70%",
-        display: "flex",
-        y: 0,
-        opacity: 1,
-      });
-      setIsOpenPanel(false);
-    } else {
-      gsap.to(vehiclePanelRef.current, {
-        duration: 0.2,
-        display: "none",
-        y: 350,
-      });
-    }
+  useEffect(() => {
+    if (vehiclePanel) setIsOpenPanel(false);
   }, [vehiclePanel]);
-  
-  // Confirm Panel Gsap 
-  useGSAP(() => {
-    if (isOpenConfirm) {
-      gsap.to(confirmRef.current, {
-        duration: 0.2,
-        // height: "70%",
-        display: "flex",
-        y: 0,
-        opacity: 1,
-      });
-      setVehiclePanel(false);
-    } else {
-      gsap.to(confirmRef.current, {
-        duration: 0.2,
-        display: "none",
-        y: 550,
-      });
-    }
+
+  useEffect(() => {
+    if (isOpenConfirm) setVehiclePanel(false);
   }, [isOpenConfirm]);
+
+  useEffect(() => {
+    if (lookingDirver) setIsOpenConfirm(false);
+  }, [lookingDirver]);
+
+  useGSAP(() => {
+    // Main Panel Gsap
+    gsap.to(panelRef.current, {
+      duration: 0.2,
+      height: isOpenPanel ? "70%" : "0%",
+      display: isOpenPanel ? "block" : "none",
+      padding: isOpenPanel ? "12px" : "0px",
+      opacity: isOpenPanel ? 1 : 0,
+    });
+
+    // Vehicle Panel Gsap
+    gsap.to(vehiclePanelRef.current, {
+      duration: 0.2,
+      y: vehiclePanel ? 0 : 360,
+      opacity: vehiclePanel ? 1 : 0,
+      display: vehiclePanel ? "flex" : "none",
+    });
+
+    // Confirm Panel Gsap
+    gsap.to(confirmRef.current, {
+      duration: 0.2,
+      y: isOpenConfirm ? 0 : 550,
+      opacity: isOpenConfirm ? 1 : 0,
+      display: isOpenConfirm ? "flex" : "none",
+    });
+
+    // Looking for Driver Gsap
+    gsap.to(lookingDriverRef.current, {
+      duration: 0.2,
+      y: lookingDirver ? 0 : 100,
+      opacity: lookingDirver ? 1 : 0,
+      display: lookingDirver ? "flex" : "none",
+    });
+  }, [isOpenPanel, vehiclePanel, isOpenConfirm, lookingDirver]);
 
   return (
     <div className="overflow-hidden">
@@ -170,6 +160,7 @@ const Home = () => {
         <div ref={panelRef} className=" opacity-0 bg-white hidden">
           <LocationSearchPanel
             setVehiclePanel={setVehiclePanel}
+            setIsOpenPanel={setIsOpenPanel}
           />
         </div>
       </div>
@@ -236,14 +227,34 @@ const Home = () => {
 
       {/* Confirm Panel  */}
       <div ref={confirmRef} className="absolute bottom-0  bg-white  pb-4">
-        <ConfirmRide setIsOpenConfirm={setIsOpenConfirm} WideArrow={WideArrow} Sqaure={Sqaure} PaymentMethod={PaymentMethod} MapPin={MapPin} whiteCar={whiteCar} /> 
+        <ConfirmRide
+          setLookingDirver={setLookingDirver}
+          setIsOpenConfirm={setIsOpenConfirm}
+          WideArrow={WideArrow}
+          Sqaure={Sqaure}
+          PaymentMethod={PaymentMethod}
+          MapPin={MapPin}
+          whiteCar={whiteCar}
+        />
       </div>
 
       {/* Waiting for driver Panel  */}
-      <div className="absolute bottom-0  bg-white pb-4">
-        <LookingForRider  setIsOpenConfirm={setIsOpenConfirm} WideArrow={WideArrow} Sqaure={Sqaure} PaymentMethod={PaymentMethod} MapPin={MapPin} whiteCar={whiteCar}  />
+      <div
+        ref={lookingDriverRef}
+        className="hidden absolute bottom-0  bg-white pb-4"
+      >
+        <LookingForRider
+          setLookingDirver={setLookingDirver}
+          WideArrow={WideArrow}
+          Sqaure={Sqaure}
+          PaymentMethod={PaymentMethod}
+          MapPin={MapPin}
+          whiteCar={whiteCar}
+        />
       </div>
- 
+
+      {/* Driver Panel  */}
+      <div></div>
     </div>
   );
 };

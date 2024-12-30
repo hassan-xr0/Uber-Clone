@@ -7,6 +7,7 @@ const ConfirmRide = ({
   PaymentMethod,
   MapPin,
   whiteCar,
+  setLookingDirver,
 }) => {
   return (
     <div className="w-screen flex flex-col items-center">
@@ -56,7 +57,7 @@ const ConfirmRide = ({
           <p className="text-[11px] text-zinc-500 leading-4">Cash Cash</p>
         </div>
       </div>
-      <button className="w-[90vw] bg-black text-white py-[7px] text-sm mt-3 rounded-lg ">
+      <button onClick={()=>setLookingDirver(true)} className="w-[90vw] bg-black text-white py-[7px] text-sm mt-3 rounded-lg ">
         Confirm
       </button>
     </div>

@@ -1,7 +1,7 @@
 import React from "react";
 import "remixicon/fonts/remixicon.css";
 
-const LocationSearchPanel = ({vehiclePanel,setVehiclePanel})=> {
+const LocationSearchPanel = ({setIsOpenPanel,setVehiclePanel})=> {
   
   const locations = [
     {
@@ -29,7 +29,7 @@ const LocationSearchPanel = ({vehiclePanel,setVehiclePanel})=> {
         <div
           onClick={() => {
             setVehiclePanel(true);
-            
+            setIsOpenPanel(false);
           }}
           key={i}
           className="flex items-center gap-2  pr-3"
