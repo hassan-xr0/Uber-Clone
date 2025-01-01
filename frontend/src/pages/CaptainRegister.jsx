@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import UberDriverLogo from "/src/images/UberDriveLogo.svg";
 import axios from "axios";
+import { CaptainDataContext } from "../context/CaptainContext";
 
 
 const CaptainRegister = () => {
@@ -18,6 +19,8 @@ const CaptainRegister = () => {
   const [numPlate, setNumPlate] = useState("");
   const [capacity, setCapacity] = useState("");
   const [vehicleType, setVehicleType] = useState("");
+
+  const { captain, setCaptain } = React.useContext(CaptainDataContext)
 
   const submitHandler = async(e) => {
     e.preventDefault();
@@ -38,11 +41,13 @@ const CaptainRegister = () => {
 
     const res = await  axios.post(`${import.meta.env.VITE_BASE_URL}/captains/register`, captainData);
 
+   
     if (res.status === 201) {
-      setCaptainData(res.data.captain);
-      localStorage.setItem('captain-token', res.data.token);
-      navigate("/captains-home");
-    } 
+      const data = res.data
+      setCaptain(data.captain)
+      localStorage.setItem('token', data.token)
+      navigate('/captains-home')
+    }
     // console.log(captainData);
 
     console.log(captainData);
@@ -50,6 +55,10 @@ const CaptainRegister = () => {
     setPassword("");
     setFirstname("");
     setLastname("");
+    setColor("");
+    setCapacity(""); 
+    setNumPlate("");
+    setVehicleType(""); 
   };
   return (
     <div className="uber-move-text py-6 px-4">
@@ -142,17 +151,15 @@ const CaptainRegister = () => {
                 setCapacity(e.target.value);
               }}
             />
-            <select
+              <select
               required
-              className="bg-[#eeeeee] w-1/2 rounded-lg px-4 py-2 border text-lg placeholder:text-base"
+              className='bg-[#eeeeee] w-1/2 rounded-lg px-4 py-2 border text-lg placeholder:text-base'
               value={vehicleType}
               onChange={(e) => {
-                setVehicleType(e.target.value);
+                setVehicleType(e.target.value)
               }}
             >
-              <option value="" disabled>
-                Select Vehicle Type
-              </option>
+              <option value="" disabled>Select Vehicle Type</option>
               <option value="car">Car</option>
               <option value="auto">Auto</option>
               <option value="moto">Moto</option>
