@@ -17,6 +17,7 @@ import WideArrow from "../images/arrow-down-wide.svg";
 import ConfirmRide from "../components/ConfirmRide";
 import LookingForRider from "../components/LookingForRider";
 import { useEffect } from "react";
+import UserPng from '../images/user.png'
 
 const Home = () => {
   const [pickUp, setPickUp] = useState("");
@@ -243,19 +244,18 @@ const Home = () => {
         ref={lookingDriverRef}
         className="hidden absolute bottom-0  bg-white pb-4"
       >
-        <LookingForRider
+        {lookingDirver ?         <LookingForRider
           setLookingDirver={setLookingDirver}
           WideArrow={WideArrow}
+          UserPng={UserPng}
           Sqaure={Sqaure}
           PaymentMethod={PaymentMethod}
           MapPin={MapPin}
           whiteCar={whiteCar}
-        />
-      </div>
+        />:'' }
 
-      {/* Driver Panel  */}
-      <div></div>
-    </div>
+      </div>
+    </div>  
   );
 };
 
