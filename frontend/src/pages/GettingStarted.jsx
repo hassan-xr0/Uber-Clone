@@ -11,7 +11,7 @@ const GettingStarted = () => {
 
         <div className="bg-white py-5  px-7">
           <h2 className="text-3xl tracking-tighter font-semibold">Get Started with Uber</h2>
-          <Link to='/login' className="mt-7 block font-medium text-center bg-black text-white w-full p-[0.9rem] rounded-lg" >Continue</Link>
+          <Link to='/select-role' className="mt-7 block font-medium text-center bg-black text-white w-full p-[0.9rem] rounded-lg" >Continue</Link>
         </div>
       </div>
     </div>
