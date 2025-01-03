@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import uberDriverLogo from "/src/images/UberDriveLogo.svg";
 import userBg from "../images/uber-search-2.png";
 import MapPin from "../images/map-pin.svg";
@@ -19,9 +19,15 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 
 const CaptainHome = () => {
-  const [isOpenDash, setIsOpenDash] = useState(false);
+  const [isOpenRideDetail, setIsOpenRideDetails] = useState(false);
   const [rideReq, setRideReq] = useState(true);
   const RideReqRef = useRef(null);
+  const RideDetialsRef = useRef(null)
+
+  useEffect(() => {
+    if(isOpenRideDetail) setRideReq(false)
+  }, [rideReq])
+  
 
   useGSAP(() => {
     gsap.to(RideReqRef.current, {
@@ -31,7 +37,16 @@ const CaptainHome = () => {
       duration: 0.2,
       ease: "power2.out",
     });
-  }, [rideReq]);
+
+    gsap.to(RideDetialsRef.current, {
+      display: isOpenRideDetail ? "block" : "none",
+      opacity: isOpenRideDetail ? 1 : 0,
+      y: isOpenRideDetail ? 0 : 400,
+      duration: 0.2,
+      ease: "power2.out",
+    });
+
+  }, [rideReq, isOpenRideDetail]);
 
   return (
     <div className="overflow-hidden max-h-[100vh] w-full ">
@@ -49,7 +64,7 @@ const CaptainHome = () => {
       <div className={` h-screen w-screen`}>
         <img src={userBg} alt="" />
       </div>
-
+      {/* Main Panel -dashboard- */}
       <div className="absolute bottom-0  bg-white  py-6  rounded-t-xl">
         <div className="w-screen flex gap-4 flex-col items-center px-4">
           <div className="flex items-center   w-full justify-between  leading-5">
@@ -104,6 +119,7 @@ const CaptainHome = () => {
         </div>
       </div>
 
+      {/* Ride Request Panel  */}
       <div
         ref={RideReqRef}
         className="absolute bottom-0  bg-white  py-6  rounded-t-xl"
@@ -165,9 +181,9 @@ const CaptainHome = () => {
           </div>
 
           <div className="flex w-full flex-row-reverse items-end mt-3 gap-2">
-            <Link to='/passenger-details' className=" bg-black border-2 border-black text-white px-[12vw] py-[8px] text-sm rounded-lg ">
+            <button onClick={() => setIsOpenRideDetails (true)} className=" bg-black border-2 border-black text-white px-[12vw] py-[8px] text-sm rounded-lg ">
               Accept
-            </Link>
+            </button>
             <button
               onClick={() => setRideReq(false)}
               className=" bg-zinc-100 border-2 border-black text-black px-[12vw] py-[8px] text-sm  rounded-lg "
@@ -177,6 +193,9 @@ const CaptainHome = () => {
           </div>
         </div>
       </div>
+
+      {/* Ride Details */}
+      <div ref={RideDetialsRef} className="absolute bottom-0 bg-red-100 h-[100vh] w-full" ></div>
     </div>
   );
 };
