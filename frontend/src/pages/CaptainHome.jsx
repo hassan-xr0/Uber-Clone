@@ -18,12 +18,11 @@ const CaptainHome = () => {
   const [isOpenRideDetail, setIsOpenRideDetails] = useState(false);
   const [rideReq, setRideReq] = useState(true);
   const RideReqRef = useRef(null);
-  const RideDetialsRef = useRef(null)
+  const RideDetialsRef = useRef(null);
 
   useEffect(() => {
-    if(isOpenRideDetail) setRideReq(false)
-  }, [rideReq])
-  
+    if (isOpenRideDetail) setRideReq(false);
+  }, [rideReq]);
 
   useGSAP(() => {
     gsap.to(RideReqRef.current, {
@@ -41,7 +40,6 @@ const CaptainHome = () => {
       duration: 0.2,
       ease: "power2.out",
     });
-
   }, [rideReq, isOpenRideDetail]);
 
   return (
@@ -120,19 +118,11 @@ const CaptainHome = () => {
         ref={RideReqRef}
         className="absolute bottom-0  bg-white  py-6  rounded-t-xl"
       >
-      <RideRequest setRideReq={setRideReq} setIsOpenRideDetails={setIsOpenRideDetails} />
+        <RideRequest
+          setRideReq={setRideReq}
+          setIsOpenRideDetails={setIsOpenRideDetails}
+        />
       </div>
-
-      {/* Ride Details */}
-      {/* <div ref={RideDetialsRef} className="absolute bottom-0 bg-red-100 h-[100vh] w-full" >
-        <div>
-          <div className="flex flex-col items-center justify-center">
-           <img src={ArrowDown} width={30} className="" />
-           <h2>Ride </h2>
-          </div>
-
-        </div>
-      </div> */}
     </div>
   );
 };

@@ -1,9 +1,9 @@
-import React from 'react'
-import DriverPfp from "../images/driver-profile.webp";
+import React from "react";
+import User from "../images/user2.jpg";
 import Logout from "../images/logout.svg";
 import userBg from "../images/uber-search-2.png";
 import uberDriverLogo from "/src/images/UberDriveLogo.svg";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const CaptainRide = () => {
   return (
@@ -23,37 +23,22 @@ const CaptainRide = () => {
         <img src={userBg} alt="" />
       </div>
       {/* Main Panel -dashboard- */}
-      <div className="absolute bottom-0  bg-white  py-6  rounded-t-xl">
-        <div className="w-screen flex gap-4 flex-col items-center px-4">
-          <div className="flex items-center   w-full justify-between  leading-5">
-            <div className="flex items-center gap-2">
-              <img src={DriverPfp} className="rounded-full" width={40} />
-              <div className="flex flex-col">
-                <h3 className="font-semibold text-[16px] tracking-tighter">
-                  Jeremah Curtis
-                </h3>
-                <p className="text-[13px] text-zinc-500 tracking-tighter">
-                  Basic level
-                </p>
-              </div>
-            </div>
+      <div className="absolute bottom-0  bg-white  py-4  rounded-t-xl">
+        <div className="w-screen flex gap-4  px-5">
+          <img src={User} className="rounded-full" width={40} />
 
-            <div className="text-right">
-              <h3 className="font-semibold text-[17px] tracking-tighter">
-                ₹ 3200
-              </h3>
-              <p className="text-[13px] text-zinc-500 tracking-tighter">
-                Earned
-              </p>
-            </div>
+          <div className="flex flex-col">
+            <p className="text-[13px] font-medium text-zinc-500 tracking-tighter">
+              Pick up at
+            </p>
+            <h3 className="font-semibold text-[16px] tracking-tighter">
+              1599 Curabitur Rd
+            </h3>
           </div>
-          
         </div>
       </div>
-
-
     </div>
-  )
-}
+  );
+};
 
-export default CaptainRide
+export default CaptainRide;
