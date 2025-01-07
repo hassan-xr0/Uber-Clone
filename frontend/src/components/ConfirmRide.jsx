@@ -12,7 +12,7 @@ const ConfirmRide = ({
   return (
     <div className="w-screen flex flex-col items-center">
       {" "}
-      <div onClick={() => setIsOpenConfirm(false)}>
+      <div className="mt-2" onClick={() => setIsOpenConfirm(false)}>
         <img src={WideArrow} width={20} />
       </div>
       <h2 className="text-lg font-semibold mt-3">Confirm your ride</h2>
@@ -57,6 +57,7 @@ const ConfirmRide = ({
           <p className="text-[11px] text-zinc-500 leading-4">Cash Cash</p>
         </div>
       </div>
+      
       <button onClick={()=>setLookingDirver(true)} className="w-[90vw] bg-black text-white py-[7px] text-sm mt-3 rounded-lg ">
         Confirm
       </button>

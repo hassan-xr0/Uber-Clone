@@ -3,6 +3,7 @@ import User from "../images/user2.jpg";
 import Logout from "../images/logout.svg";
 import userBg from "../images/uber-search-2.png";
 import uberDriverLogo from "/src/images/UberDriveLogo.svg";
+import WideArrow from "../images/arrow-down-wide.svg";
 import { Link } from "react-router-dom";
 
 const CaptainRide = () => {
@@ -23,18 +24,32 @@ const CaptainRide = () => {
         <img src={userBg} alt="" />
       </div>
       {/* Main Panel -dashboard- */}
-      <div className="absolute bottom-0  bg-white  py-4  rounded-t-xl">
-        <div className="w-screen flex gap-4  px-5">
-          <img src={User} className="rounded-full" width={40} />
-
-          <div className="flex flex-col">
-            <p className="text-[13px] font-medium text-zinc-500 tracking-tighter">
-              Pick up at
-            </p>
-            <h3 className="font-semibold text-[16px] tracking-tighter">
-              1599 Curabitur Rd
-            </h3>
+      <div className="absolute bottom-0  bg-white pb-4 pt-1  rounded-t-xl">
+        <div className="w-screen flex flex-col items-center  gap-4   px-">
+          <div  onClick={() => {}}>
+            <img src={WideArrow} width={30} />
           </div>
+          <div className="flex w-full justify-between items-center px-5">
+            
+            <div className="flex gap-4 items-center">
+            <div><img src={User} className="rounded-full" width={40} /></div>
+            <div className="flex flex-col leading-4">
+            <p className="text-[11px] font-medium text-zinc-500 tracking-tighter">4.2 km away</p>
+              <p className="text-[12px] font-medium text-zinc-500 tracking-tighter">
+                Pick up at
+              </p>
+              <h3 className="font-semibold text-[14px] tracking-tighter">
+                1599 Curabitur Rd
+              </h3>
+
+            </div>
+            </div>
+
+            <button className="text-[12px] bg-black border-2 border-black text-white px-[9px] py-[9px] rounded-lg ">Complete ride</button>
+          </div>
+            
+         
+
         </div>
       </div>
     </div>

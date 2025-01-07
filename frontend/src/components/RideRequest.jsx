@@ -63,6 +63,12 @@ const RideRequest = ({setIsOpenRideDetails,setRideReq}) => {
       </div>
     </div>
 
+    <form className="flex flex-col " onSubmit={(e) => submitHandler(e)}>
+            <input
+              className="bg-[#eeee] p-[13px] mt-2 rounded-xl w-[100%]"
+              type="number"
+              placeholder="Enter OTP"
+            />
     <div className="flex w-full flex-row-reverse items-end mt-3 gap-2">
       <Link to='/captain-ride' onClick={() => setIsOpenRideDetails (true)} className=" bg-black border-2 border-black text-white px-[12vw] py-[8px] text-sm rounded-lg ">
         Accept
@@ -74,6 +80,9 @@ const RideRequest = ({setIsOpenRideDetails,setRideReq}) => {
         Ignore
       </button>
     </div>
+          </form>
+
+
   </div>
   )
 }
