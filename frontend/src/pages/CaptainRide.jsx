@@ -5,10 +5,12 @@ import userBg from "../images/uber-search-2.png";
 import uberDriverLogo from "/src/images/UberDriveLogo.svg";
 import WideArrow from "../images/arrow-down-wide.svg";
 import { Link } from "react-router-dom";
+import FinishRide from "../components/FinishRide";
 
 const CaptainRide = () => {
   return (
     <div className="overflow-hidden max-h-[100vh] w-full ">
+      {/* header */}
       <div className="absolute flex  justify-between items-center w-full">
         <img className="w-16  m-6" src={uberDriverLogo} alt="" />
         <Link to="/captain/logout">
@@ -20,14 +22,16 @@ const CaptainRide = () => {
         </Link>
       </div>
 
+      {/* background */}
       <div className={` h-screen w-screen`}>
         <img src={userBg} alt="" />
       </div>
+
       {/* Main Panel -dashboard- */}
       <div className="absolute bottom-0  bg-white pb-4 pt-1  rounded-t-xl">
         <div className="w-screen flex flex-col items-center  gap-4   px-">
           <div  onClick={() => {}}>
-            <img src={WideArrow} width={30} />
+            <img src={WideArrow} width={30} className="rotate-180" />
           </div>
           <div className="flex w-full justify-between items-center px-5">
             
@@ -51,6 +55,11 @@ const CaptainRide = () => {
          
 
         </div>
+      </div>
+
+      {/* complete ride Penal */}
+      <div className="absolute bottom-0  bg-white pb-4 pt-1  rounded-t-xl">
+        <FinishRide></FinishRide>
       </div>
     </div>
   );
