@@ -6,6 +6,7 @@ import PaymentMethod from "../images/bank-card.svg";
 import WideArrow from "../images/arrow-down-wide.svg";
 
 const FinishRide = () => {
+  
   return (
     <div className="w-screen flex g flex-col  px-4 ">
       <div className="flex justify-center" onClick={() => {}}>

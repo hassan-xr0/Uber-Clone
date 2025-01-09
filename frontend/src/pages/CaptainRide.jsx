@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import User from "../images/user2.jpg";
 import Logout from "../images/logout.svg";
 import userBg from "../images/uber-search-2.png";
@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import FinishRide from "../components/FinishRide";
 
 const CaptainRide = () => {
+  const [isOpenPanel, setIsOpenPanel] = useState(second)
   return (
     <div className="overflow-hidden max-h-[100vh] w-full ">
       {/* header */}
