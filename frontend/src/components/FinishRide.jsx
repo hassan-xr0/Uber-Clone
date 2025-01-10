@@ -4,12 +4,13 @@ import MapPin from "../images/map-pin.svg";
 import Sqaure from "../images/square.svg";
 import PaymentMethod from "../images/bank-card.svg";
 import WideArrow from "../images/arrow-down-wide.svg";
+import { Link } from "react-router-dom";
 
-const FinishRide = () => {
+const FinishRide = ({setIsOpenPanel}) => {
   
   return (
     <div className="w-screen flex g flex-col  px-4 ">
-      <div className="flex justify-center" onClick={() => {}}>
+      <div className="flex justify-center" onClick={() => {setIsOpenPanel(false)}}>
         <img src={WideArrow} width={30} />
       </div>
       <h2 className="text-lg font-semibold my-3">Finish this Ride !</h2>
@@ -64,13 +65,13 @@ const FinishRide = () => {
         </div>
       </div>
 
-      <button
-        // to="/captain-ride"
-        // onClick={() => setIsOpenRideDetails(true)}
-        className=" bg-black border-2 border-black text-white px-[12vw] py-[8px] text-sm rounded-lg "
+      <Link
+        to="/captains-home"
+        onClick={() => setIsOpenPanel(true)}
+        className="text-center bg-black border-2 border-black text-white px-[12vw] py-[8px] text-sm rounded-lg "
       >
         Complete Ride
-      </button>
+      </Link>
     </div>
   );
 };

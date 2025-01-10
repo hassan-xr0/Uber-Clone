@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import User from "../images/user2.jpg";
 import Logout from "../images/logout.svg";
 import userBg from "../images/uber-search-2.png";
@@ -6,9 +6,20 @@ import uberDriverLogo from "/src/images/UberDriveLogo.svg";
 import WideArrow from "../images/arrow-down-wide.svg";
 import { Link } from "react-router-dom";
 import FinishRide from "../components/FinishRide";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 
 const CaptainRide = () => {
-  const [isOpenPanel, setIsOpenPanel] = useState(second)
+  const [isOpenPanel, setIsOpenPanel] = useState(false)
+  const panelRef = useRef(null)
+  useGSAP(()=>{
+    gsap.to(panelRef.current, {
+      duration: 0.2,
+      y: isOpenPanel ? 0 : 360,
+      opacity: isOpenPanel ? 1 : 0,
+      display: isOpenPanel ? "flex" : "none",
+    });
+  },[isOpenPanel])
   return (
     <div className="overflow-hidden max-h-[100vh] w-full ">
       {/* header */}
@@ -31,7 +42,9 @@ const CaptainRide = () => {
       {/* Main Panel -dashboard- */}
       <div className="absolute bottom-0  bg-white pb-4 pt-1  rounded-t-xl">
         <div className="w-screen flex flex-col items-center  gap-4   px-">
-          <div  onClick={() => {}}>
+          <div  onClick={() => {setIsOpenPanel(true) 
+            console.log('hello')
+          }}>
             <img src={WideArrow} width={30} className="rotate-180" />
           </div>
           <div className="flex w-full justify-between items-center px-5">
@@ -59,8 +72,9 @@ const CaptainRide = () => {
       </div>
 
       {/* complete ride Penal */}
-      <div className="absolute bottom-0  bg-white pb-4 pt-1  rounded-t-xl">
-        <FinishRide></FinishRide>
+      <div ref={panelRef} className="absolute bottom-0  bg-white pb-4 pt-1  rounded-t-xl">
+        <FinishRide setIsOpenPanel={setIsOpenPanel} />
+        
       </div>
     </div>
   );
